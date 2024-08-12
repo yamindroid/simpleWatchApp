@@ -1,0 +1,90 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+    id 'dagger.hilt.android.plugin'
+}
+
+kapt {
+    correctErrorTypes true
+}
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+    namespace 'com.ymo'
+    defaultConfig {
+        applicationId 'com.ymo'
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildFeatures {
+        viewBinding true
+        buildConfig true
+        dataBinding true
+    }
+    buildTypes {
+        release {
+            buildConfigField "String", "BASE_URL", "\"https://35.160.221.54/api/\""
+            buildConfigField "String", "USER_TOKEN", "\"eb637035ec586d8d1b85b18e3063e71b\""
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            buildConfigField "String", "BASE_URL", "\"https://35.160.221.54/api/\""
+            buildConfigField "String", "USER_TOKEN", "\"eb637035ec586d8d1b85b18e3063e71b\""
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17
+    }
+}
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //android support
+    implementation "androidx.appcompat:appcompat:$appcompatVersion"
+    implementation "com.google.android.material:material:$materialVersion"
+
+    //lifecycle
+    implementation "androidx.activity:activity-ktx:$lifecycle_version"
+    implementation "androidx.fragment:fragment-ktx:$lifecycle_version"
+
+    //View Pager 2
+    implementation "androidx.viewpager2:viewpager2:$viewpagerVersion"
+
+    //retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+
+    //okhttp3
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpInterceptorVersion"
+
+    //glide image
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+
+    //dagger hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    annotationProcessor "com.google.dagger:hilt-android-compiler:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
+    //coroutine
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+
+    //room database
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+}
