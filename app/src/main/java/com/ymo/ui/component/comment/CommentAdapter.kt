@@ -34,6 +34,7 @@ class CommentAdapter : RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() 
         fun bind(topComment: TopComment) {
             binding.apply {
                 commentText.apply {
+                    text = topComment.comment
                     typeface = Typeface.create(
                         Typeface.createFromAsset(context.assets, "fonts/robot-flex-regular.ttf"),
                         Typeface.BOLD
