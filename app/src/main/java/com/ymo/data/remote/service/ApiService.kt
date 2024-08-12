@@ -5,7 +5,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiService {
-
     @GET("article/feed")
     suspend fun loadNewFeeds(
         @Query("usertoken") userToken: String,

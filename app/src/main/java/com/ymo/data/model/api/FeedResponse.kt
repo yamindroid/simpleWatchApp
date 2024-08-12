@@ -20,13 +20,13 @@ data class FeedResponse(
 @Parcelize
 data class Feed(
     @field:SerializedName("createddate")
-    val createddate: String? = null,
+    val createdDate: String? = null,
 
     @field:SerializedName("imagefile")
-    val imagefile: List<String>? = null,
+    val imageFile: List<String>? = null,
 
     @field:SerializedName("topcomments")
-    val topcomments: List<TopComment>? = null,
+    val topComments: List<TopComment>? = null,
 
     @field:SerializedName("avatar")
     val avatar: String? = null,

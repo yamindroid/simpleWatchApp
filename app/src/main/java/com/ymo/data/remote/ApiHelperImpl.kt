@@ -8,12 +8,9 @@ import javax.inject.Inject
 
 private const val PAGE_SIZE = 5
 
-class ApiHelperImpl @Inject
-constructor(
+class ApiHelperImpl @Inject constructor(
     private val apiService: ApiService
 ) : ApiHelper {
-    override suspend fun loadNewFeeds(pageNum: Int): FeedResponse {
-        Log.e("////", "loadNewFeeds: calling api arrived... ")
-        return apiService.loadNewFeeds(BuildConfig.USER_TOKEN, pageNum, PAGE_SIZE)
-    }
+    override suspend fun loadNewFeeds(pageNum: Int): FeedResponse =
+        apiService.loadNewFeeds(BuildConfig.USER_TOKEN, pageNum, PAGE_SIZE)
 }

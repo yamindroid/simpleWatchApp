@@ -18,7 +18,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityMainBinding
     private val viewModel: FeedViewModel by viewModels()
 
@@ -33,7 +32,6 @@ class MainActivity : AppCompatActivity() {
         binding.viewPager.adapter = feedPagerAdapter
         viewModel.feedsLiveData.observe(this, ::feedsHandler)
 
-        // Load more data when user reaches the end of the list
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
@@ -60,21 +58,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun hideLoadingView() {
-        onHideImageSplash()
-    }
+    private fun hideLoadingView() = onHideImageSplash()
 
-    private fun showLoadingView() {
-        onShowImageSplash()
-    }
+    private fun showLoadingView() = onShowImageSplash()
+
+    private fun onHideImageSplash() = binding.imageSplash.toGone()
 
     private fun onShowImageSplash() {
-        // Show image splash at first time app launch
+        // Show splash screen only during the first app launch
         if (viewModel.getCurrentPage() > 1) return
         binding.imageSplash.toVisible()
-    }
-
-    private fun onHideImageSplash() {
-        binding.imageSplash.toGone()
     }
 }

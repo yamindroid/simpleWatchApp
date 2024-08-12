@@ -5,18 +5,18 @@ import com.ymo.data.model.db.FeedEntity
 
 fun Feed.toEntity() = FeedEntity(
     id = id ?: 0,
-    imagefile = imagefile,
+    imagefile = imageFile,
     avatar = avatar,
-    createddate = createddate,
-    topComments = topcomments
+    createdDate = createdDate,
+    topComments = topComments
 )
 
 fun FeedEntity.toModel() = Feed(
     id = id,
-    imagefile = imagefile,
+    imageFile = imagefile,
     avatar = avatar,
-    createddate = createddate,
-    topcomments = topComments
+    createdDate = createdDate,
+    topComments = topComments
 )
 
 fun List<Feed>?.toEntityList() = this?.map { it.toEntity() }

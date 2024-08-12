@@ -9,18 +9,18 @@ import com.ymo.data.model.api.TopComment
 import com.ymo.utils.loadFromUrl
 
 class CommentAdapter : RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
-
     private var comments: List<TopComment> = emptyList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
-        val binding = ItemCommentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CommentViewHolder(binding)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder =
+        CommentViewHolder(
+            ItemCommentBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
+        )
 
-    override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
-        val comment = comments[position]
-        holder.bind(comment)
-    }
+
+    override fun onBindViewHolder(holder: CommentViewHolder, position: Int) =
+        holder.bind(comments[position])
 
     override fun getItemCount(): Int = comments.size
 
@@ -29,17 +29,19 @@ class CommentAdapter : RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() 
         notifyDataSetChanged()
     }
 
-    class CommentViewHolder(private val binding: ItemCommentBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(comment: TopComment) {
-            binding.comment = comment
-            binding.commentText.apply {
-                typeface =Typeface.create(
-                    Typeface.createFromAsset(context.assets, "fonts/robot-flex-regular.ttf"),
-                    Typeface.BOLD
-                )
+    class CommentViewHolder(private val binding: ItemCommentBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(topComment: TopComment) {
+            binding.apply {
+                commentText.apply {
+                    typeface = Typeface.create(
+                        Typeface.createFromAsset(context.assets, "fonts/robot-flex-regular.ttf"),
+                        Typeface.BOLD
+                    )
+                }
+                avatarImage.loadFromUrl(topComment.avatar)
+                executePendingBindings()
             }
-            binding.avatarImage.loadFromUrl(comment.avatar)
-            binding.executePendingBindings()
         }
     }
 }

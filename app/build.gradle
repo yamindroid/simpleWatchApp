@@ -32,12 +32,14 @@ android {
         release {
             buildConfigField "String", "BASE_URL", "\"https://35.160.221.54/api/\""
             buildConfigField "String", "USER_TOKEN", "\"eb637035ec586d8d1b85b18e3063e71b\""
+            buildConfigField "String", "PREF_NAME", "\"pref_ymo\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             buildConfigField "String", "BASE_URL", "\"https://35.160.221.54/api/\""
             buildConfigField "String", "USER_TOKEN", "\"eb637035ec586d8d1b85b18e3063e71b\""
+            buildConfigField "String", "PREF_NAME", "\"pref_ymo\""
         }
     }
     compileOptions {
@@ -53,37 +55,37 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    //android support
+    // Android support
     implementation "androidx.appcompat:appcompat:$appcompatVersion"
     implementation "com.google.android.material:material:$materialVersion"
 
-    //lifecycle
+    // Lifecycle
     implementation "androidx.activity:activity-ktx:$lifecycle_version"
     implementation "androidx.fragment:fragment-ktx:$lifecycle_version"
 
-    //View Pager 2
+    // View Pager 2
     implementation "androidx.viewpager2:viewpager2:$viewpagerVersion"
 
-    //retrofit
+    // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
 
-    //okhttp3
+    // Okhttp3
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttpInterceptorVersion"
 
-    //glide image
+    // Glide image
     implementation "com.github.bumptech.glide:glide:$glide_version"
 
-    //dagger hilt
+    // Dagger hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     annotationProcessor "com.google.dagger:hilt-android-compiler:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
-    //coroutine
+    // Coroutine
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
 
-    //room database
+    // Room database
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"

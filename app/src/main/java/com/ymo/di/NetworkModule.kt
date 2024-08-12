@@ -25,48 +25,35 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
+    @Provides
+    @Singleton
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
+        Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build()
 
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
-        .baseUrl(BuildConfig.BASE_URL)
-        .client(okHttpClient)
-        .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-
-    @Provides
-    @Singleton
-    fun providesHttpLoggingInterceptor(): HttpLoggingInterceptor {
-        return HttpLoggingInterceptor().apply {
-            if (BuildConfig.DEBUG) setLevel(HttpLoggingInterceptor.Level.BODY)
-            else setLevel(HttpLoggingInterceptor.Level.NONE)
-        }
+    fun providesHttpLoggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+        if (BuildConfig.DEBUG) setLevel(HttpLoggingInterceptor.Level.BODY)
+        else setLevel(HttpLoggingInterceptor.Level.NONE)
     }
 
     @Provides
     @Singleton
-    fun provideInterceptor(): Interceptor {
-        return Interceptor { chain: Interceptor.Chain ->
-            val originRequest = chain.request()
-            val builder: Request.Builder = originRequest.newBuilder()
-            val newRequest: Request = builder.build()
-            chain.proceed(newRequest)
-        }
+    fun provideInterceptor(): Interceptor = Interceptor { chain: Interceptor.Chain ->
+        val originRequest = chain.request()
+        val builder: Request.Builder = originRequest.newBuilder()
+        val newRequest: Request = builder.build()
+        chain.proceed(newRequest)
     }
 
     @Provides
     @Singleton
     fun provideOkHttpClient(
-        loggingInterceptor: HttpLoggingInterceptor,
-        interceptor: Interceptor
-    ): OkHttpClient {
-        return createUnsafeOkHttpClient()
-            .newBuilder()
-            .addInterceptor(loggingInterceptor)
-            .addInterceptor(interceptor)
-            .build()
-    }
+        loggingInterceptor: HttpLoggingInterceptor, interceptor: Interceptor
+    ): OkHttpClient = createUnsafeOkHttpClient().newBuilder().addInterceptor(loggingInterceptor)
+        .addInterceptor(interceptor).build()
 
     @Provides
     @Singleton
@@ -74,9 +61,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideApiHelper(apiService: ApiService): ApiHelper {
-        return ApiHelperImpl(apiService)
-    }
+    fun provideApiHelper(apiService: ApiService): ApiHelper = ApiHelperImpl(apiService)
 
     @Singleton
     class Network

@@ -17,10 +17,10 @@ data class FeedEntity @JvmOverloads constructor(
     val avatar: String? = null,
 
     @ColumnInfo(name = "createddate")
-    val createddate: String? = null,
+    val createdDate: String? = null,
 
     @TypeConverters(TopCommentListTypeConverter::class)
-    val topComments:  List<TopComment>? = null,
+    val topComments: List<TopComment>? = null,
 
     @TypeConverters(StringListTypeConverter::class)
     val imagefile: List<String>? = null
