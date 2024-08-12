@@ -13,4 +13,7 @@ interface FeedDao {
 
     @Query("SELECT * FROM feed ORDER BY createddate DESC")
     suspend fun getFeeds(): List<FeedEntity>
+
+    @Query("SELECT COUNT(*) FROM feed")
+    suspend fun getFeedsCount(): Int
 }
